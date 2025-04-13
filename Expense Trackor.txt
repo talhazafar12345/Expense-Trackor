@@ -82,7 +82,7 @@ let total = 0;
 
         // Create span for text
         const textSpan = document.createElement('span');
-        textSpan.textContent = `${desc}: $${amount.toFixed(2)}`;
+        textSpan.textContent = `${desc}:  $${amount}`;
 
         // Create delete button
         const deleteBtn = document.createElement('button');
@@ -93,7 +93,7 @@ let total = 0;
         deleteBtn.addEventListener('click', function () {
           li.remove();
           total -= amount;
-          document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+          document.getElementById('total').textContent = `Total: $${total}`;
         });
 
         // Append span and button to li
@@ -105,12 +105,11 @@ let total = 0;
 
         // Update total
         total += amount;
-        document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+        document.getElementById('total').textContent = `Total: $${total}`;
 
         // Clear input fields
         descInput.value = '';
         amountInput.value = '';
       }
     });
-
 
