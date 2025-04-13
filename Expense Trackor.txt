@@ -1,0 +1,116 @@
+Index.html
+
+<h2>Expense Tracker</h2>
+  <input type="text" id="desc" placeholder="Enter Items" />
+  <input type="number" id="amount" placeholder="Amount" step="0.01" />
+  <button id="addBtn">Add Expense</button>
+  <button onclick="window.location.reload()" id="addBtn">Refresh</button>
+
+  <ul id="expenseList"></ul>
+
+  <p id="total">Total: $0.00</p>
+
+
+style.css
+
+body {
+    font-family: Arial, sans-serif;
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  input, button {
+    padding: 8px;
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    padding: 6px;
+    margin: 4px 0;
+    background-color: #f0f0f0;
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .delete-btn {
+    background-color: #ff4d4d;
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  #total {
+    font-weight: bold;
+    margin-top: 15px;
+  }
+
+  #addBtn{
+    background-color: blue;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    margin-top: 20px;
+  }
+
+
+
+app.js
+
+
+let total = 0;
+
+    document.getElementById('addBtn').addEventListener('click', function () {
+      const descInput = document.getElementById('desc');
+      const amountInput = document.getElementById('amount');
+
+      const desc = descInput.value.trim();
+      const amount = parseFloat(amountInput.value);
+
+      if (desc !== '' && !isNaN(amount)) {
+        // Create list item
+        const li = document.createElement('li');
+
+        // Create span for text
+        const textSpan = document.createElement('span');
+        textSpan.textContent = `${desc}: $${amount.toFixed(2)}`;
+
+        // Create delete button
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.className = 'delete-btn';
+
+        // Delete functionality
+        deleteBtn.addEventListener('click', function () {
+          li.remove();
+          total -= amount;
+          document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+        });
+
+        // Append span and button to li
+        li.appendChild(textSpan);
+        li.appendChild(deleteBtn);
+
+        // Append li to ul
+        document.getElementById('expenseList').appendChild(li);
+
+        // Update total
+        total += amount;
+        document.getElementById('total').textContent = `Total: $${total.toFixed(2)}`;
+
+        // Clear input fields
+        descInput.value = '';
+        amountInput.value = '';
+      }
+    });
+
+
