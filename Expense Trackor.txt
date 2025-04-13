@@ -2,13 +2,13 @@ Index.html
 
 <h2>Expense Tracker</h2>
   <input type="text" id="desc" placeholder="Enter Items" />
-  <input type="number" id="amount" placeholder="Amount" step="0.01" />
+  <input  type="number" id="amount" placeholder="Amount" step="0.01" />
   <button id="addBtn">Add Expense</button>
-  <button onclick="window.location.reload()" id="addBtn">Refresh</button>
+  <button onclick="window.location.reload()" id="addBtn">Remove All</button>
 
   <ul id="expenseList"></ul>
 
-  <p id="total">Total: $0.00</p>
+  <p id="total">Total:  $0</p>
 
 
 style.css
@@ -18,8 +18,11 @@ body {
     max-width: 400px;
     margin: 50px auto;
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
+    border: 10px solid #ccc;
+    border-radius: 50px;
+    background-color: darkgoldenrod;
+  
+
   }
   input, button {
     padding: 8px;
@@ -39,6 +42,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: darkmagenta;
   }
   .delete-btn {
     background-color: #ff4d4d;
@@ -51,6 +55,7 @@ body {
   #total {
     font-weight: bold;
     margin-top: 15px;
+    
   }
 
   #addBtn{
@@ -62,54 +67,82 @@ body {
     margin-top: 20px;
   }
 
+  #desc{
+    border-radius: 10px;
+    border: none;
+    color: red;
+  }
 
 
+
+  #amount{
+    border-radius: 10px;
+    border: none;
+    color: red;
+  }
+
+#total{
+    color: white;
+}
+
+h2{
+    color:whitesmoke;
+}
 app.js
 
 
 let total = 0;
 
-    document.getElementById('addBtn').addEventListener('click', function () {
-      const descInput = document.getElementById('desc');
-      const amountInput = document.getElementById('amount');
+  document.getElementById('addBtn').addEventListener('click', function () {
+    const descInput = document.getElementById('desc');
+    const amountInput = document.getElementById('amount');
 
-      const desc = descInput.value.trim();
-      const amount = parseFloat(amountInput.value);
+    const desc = descInput.value.trim();
+    const amount = parseFloat(amountInput.value);
+    if (desc !== '' && !isNaN(amount)) {
+      // Create list item
+      const li = document.createElement('li');
 
-      if (desc !== '' && !isNaN(amount)) {
-        // Create list item
-        const li = document.createElement('li');
+      // Create span for text
+      const textSpan = document.createElement('span');
+      textSpan.textContent = `${desc}:  $${amount}`;
 
-        // Create span for text
-        const textSpan = document.createElement('span');
-        textSpan.textContent = `${desc}:  $${amount}`;
+      // Create delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.className = 'delete-btn';
 
-        // Create delete button
-        const deleteBtn = document.createElement('button');
-        deleteBtn.textContent = 'Delete';
-        deleteBtn.className = 'delete-btn';
-
-        // Delete functionality
-        deleteBtn.addEventListener('click', function () {
-          li.remove();
-          total -= amount;
-          document.getElementById('total').textContent = `Total: $${total}`;
-        });
-
-        // Append span and button to li
-        li.appendChild(textSpan);
-        li.appendChild(deleteBtn);
-
-        // Append li to ul
-        document.getElementById('expenseList').appendChild(li);
-
-        // Update total
-        total += amount;
+      // Delete functionality
+      deleteBtn.addEventListener('click', function () {
+        li.remove();
+        total -= amount;
         document.getElementById('total').textContent = `Total: $${total}`;
+      });
 
-        // Clear input fields
-        descInput.value = '';
-        amountInput.value = '';
-      }
-    });
+      // Append span and button to li
+      li.appendChild(textSpan);
+      li.appendChild(deleteBtn);
+
+      // Append li to ul
+      document.getElementById('expenseList').appendChild(li);
+
+      // Update total
+      total += amount;
+      document.getElementById('total').textContent = `Total: $${total}`;
+
+      // Clear input fields
+      descInput.value = '';
+      amountInput.value = '';
+    }
+  });
+
+
+
+
+
+
+
+
+
+
 
