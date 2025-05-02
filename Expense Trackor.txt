@@ -88,6 +88,25 @@ body {
 h2{
     color:whitesmoke;
 }
+
+@media only screen and (max-width: 600px) {
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        border: 10px solid #ccc;
+        border-radius: 50px;
+        background-color: darkgoldenrod;
+        width: 200px;
+      
+    
+      }
+  }
+
+ 
+
+
 app.js
 
 
